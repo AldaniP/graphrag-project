@@ -1,0 +1,47 @@
+NARRATIVE REPORT #001: THE INITIAL PHISHING WAVE
+On June 12, 2026, a highly targeted spear-phishing campaign was launched against DeltaCorp employees. The phishing campaign, named 'Operation Credential Harvest', utilized an external email relay server named MailServer-Z located in Fenix Security's Berlin Branch. The phishing emails contained a malicious link pointing to 'secure-update-deltacorp.net', a domain registered by the threat group DarkWeb Syndicate. Five DeltaCorp employees received this email: Charlie Brown (Financial Officer at Jakarta HQ), Grace Lee (COO at Jakarta HQ), Frank Wright (Database Engineer at London Office), Susan Miller (HR Manager at Berlin Branch), and Sarah Connor (SysAdmin at Singapore Data Center). Charlie Brown clicked the link using Laptop-01. Frank Wright also clicked the link using Desktop-05. Susan Miller clicked the link on Laptop-Berlin-03, while Grace Lee and Sarah Connor successfully flagged the email and reported it to CyberGuard Inc's Security Operations Center (SOC).
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #002: ENDPOINT INTRUSION ANALYSIS
+On June 15, 2026, CyberGuard Inc analyst Alice Smith conducted forensics on Charlie Brown's Laptop-01 and Frank Wright's Desktop-05. Alice Smith discovered a custom-built Trojan executable file named 'shadow.exe' installed in the temporary folders of both systems. On Laptop-01, shadow.exe was launched and immediately injected code into a system process. The malware extracted cached domain credentials from memory, specifically compromising the local password hashes of Charlie Brown. On Desktop-05, the malware stored a keystroke logger file named 'keylog.txt' in the root directory. Laptop-01 established a covert communication channel (beaconing) to the command-and-control (C2) server 'malwaredomain.com' hosted at IP address 198.51.100.45. Desktop-05 beaconed to another IP address, 198.51.100.99, which is registered to a proxy host named Proxy-Node-Beta.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #003: LATERAL MOVEMENT AND RECONNAISSANCE
+On June 16, 2026, the attacker utilized compromised credentials from Frank Wright to perform lateral movement from Desktop-05. The attacker accessed the core database server DB-SQL-01, which is located in Server Room 3B at the Jakarta HQ. Bob Johnson, DeltaCorp's System Administrator, discovered anomalous administrative logins on DB-SQL-01 originating from Desktop-05. Log analysis showed that the attacker executed several database queries targeting a highly sensitive database called CustomerDataDB on DB-SQL-01. The database CustomerDataDB contains records of over 10,000 corporate clients. The attacker was also found to have used the remote desktop protocol (RDP) to connect from Laptop-01 to a staging file server named BackupServer-02, located in the Berlin Branch.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #004: NETWORK ROUTING AND FIREWALL EVASION
+On June 16, 2026, the Singapore Data Center reported network anomalies. Sarah Connor inspected the core network router Router-SG-01 and detected unauthorized configuration changes. The router Router-SG-01 had its routing table modified to bypass the firewall device FireWall-X. This bypass allowed outbound network packets from Server Room 3B in Jakarta HQ to flow directly to malwaredomain.com without inspection. FireWall-X, which is managed by Fenix Security, failed to alert on this traffic because of the router modification. Investigative logs indicate that the modification command was sent from an internal IP address 10.10.200.5, which is assigned to a virtual machine named VM-JumpHost-02 running in the Singapore Data Center.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #005: ACTIVE DIRECTORY COMPROMISE
+On June 17, 2026, the incident escalated to a full network compromise. The attacker used credential harvesting tools on VM-JumpHost-02 to attack the primary Active Directory Domain Controller, DC-ADMIN-01, located in Jakarta HQ. The attacker successfully gained Domain Administrator privileges by exploiting a legacy vulnerability in DC-ADMIN-01. With these credentials, the attacker created a rogue domain admin account named 'ad-service-temp'. System Administrator Bob Johnson noticed the creation of this account during a routine audit. Bob Johnson immediately flagged the account as unauthorized and notified Fenix Security to initiate directory-wide password resets.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #006: DATA ARCHIVING AND EXFILTRATION
+On June 17, 2026, using the rogue account 'ad-service-temp', the attacker accessed the database DB-SQL-01 and compressed the client data into a file named 'customer_records_2026.tar.gz'. The file customer_records_2026.tar.gz was then copied to BackupServer-02 in the Berlin Branch. David Miller, a Malware Expert from Aegis Labs, confirmed that the attacker initiated an FTP upload of customer_records_2026.tar.gz from BackupServer-02 to the external storage server file-upload-drop.org located at IP address 203.0.113.12. The data exfiltration event occurred between 03:00 UTC and 04:30 UTC and was logged by the local Berlin firewall Berlin-FW-01.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #007: RANSOMWARE ACTIVATION AND CRYPTO-LOCKING
+On June 18, 2026, at 06:00 UTC, the threat group DarkWeb Syndicate triggered a ransomware payload across DeltaCorp's network. The ransomware, identified as a variant named 'FenixLocker', encrypted files on 25 corporate laptops, including Charlie Brown's Laptop-01 and Susan Miller's Laptop-Berlin-03. The encrypted files were renamed with the extension '.locked'. On Laptop-Berlin-03, the files encrypted included 'Contracts_2026.pdf' and 'Salaries_Q2.xlsx'. A ransom note file named 'RESTORE_INSTRUCTIONS.txt' was created in every directory, demanding a payment of 10 Bitcoins to a specific crypto wallet address.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #008: PERIPHERAL INVESTIGATION
+On June 18, 2026, David Miller of Aegis Labs conducted forensic analysis on a physical USB drive, USB-09, which was found discarded near Server Room 3B at Jakarta HQ. David Miller discovered that USB-09 contained a copy of shadow.exe, along with a text file named 'config_pass.txt' containing administrative passwords for DeltaCorp's network devices. Fingerprint and access log analysis of the Server Room 3B security gate revealed that the room was accessed using a cloned access card assigned to Frank Wright on June 14, 2026. This indicates a physical breach component to the digital cyber attack.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #009: TASK FORCE COORDINATION AND CONTAINMENT
+On June 18, 2026, an emergency event named 'Joint Incident Command Center' was established at Singapore HQ. The event was chaired by Grace Lee. Key attendees included Alice Smith (CyberGuard Inc), David Miller (Aegis Labs), Bob Johnson (DeltaCorp), and Victor Vance (Incident Response Lead at Fenix Security). The task force agreed on immediate containment steps: isolating VM-JumpHost-02, disabling the rogue domain account ad-service-temp, restoring the routing table on Router-SG-01, and placing BackupServer-02 in quarantine. CyberGuard Inc agreed to monitor all network traffic for further beaconing to malwaredomain.com.
+
+=== END OF REPORT ===
+
+NARRATIVE REPORT #010: POST-INCIDENT REMEDIATION AND LEGAL RESPONSE
+On June 19, 2026, DeltaCorp's legal team, led by general counsel Karen Nelson, filed a formal complaint with law enforcement against the hacker group DarkWeb Syndicate. Aegis Labs provided a detailed threat intelligence report containing threat actor profiles to Karen Nelson. Meanwhile, Bob Johnson and Alice Smith deployed a new endpoint detection agent named SecurityAgent-Pro on all DeltaCorp workstations. SecurityAgent-Pro successfully deleted FenixLocker and shadow.exe from Frank Wright's Desktop-05. Fenix Security confirmed that the external command-and-control domain malwaredomain.com has been sinkholed by national cybersecurity authorities, successfully preventing any further data exfiltration attempts.
